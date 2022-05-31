@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <ctime>
+#include <random>
 
 #include "store.h"
 
@@ -52,6 +54,15 @@ public:
 		return nproducts_;
 	}
 
+	const product::IElectronics* getItem(size_t index) const
+	{
+		if (index < nproducts_) {
+			return products_[index];
+		}
+
+		return nullptr;
+	}
+
 	void ShowProducts()
 	{
 		using namespace std;
@@ -60,7 +71,7 @@ public:
 
 		for (size_t i = 0; i < nproducts_; ++i) {
 			commerce::Label* label = dynamic_cast<commerce::Label*>(products_[i]);
-			report[label->getType()][label->getName()]++;
+			++report[label->getType()][label->getName()];
 		}
 
 
@@ -92,53 +103,57 @@ int main()
 	Store store(150);
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::Player("Walkman", 500, 15));
+		store.AddProduct(new store::Player("Walkman", 500, 15, 500));
 	}
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::Player("Xiamoi", 1500, 1000));
+		store.AddProduct(new store::Player("Xiamoi", 1500, 1000, 500));
 	}
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::Smartphone("Galaxy", 1500, "Android", 1024));
+		store.AddProduct(new store::Smartphone("Galaxy", 1500, "Android", 1024, 500));
 	}
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::Smartphone("Huawey", 2000, "Android", 1024));
+		store.AddProduct(new store::Smartphone("Huawey", 2000, "Android", 1024, 500));
 	}
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::VacumCleaner("Фиолент", 5, 1000, 1500));
+		store.AddProduct(new store::VacumCleaner("Фиолент", 5, 1000, 1500, 500));
 	}
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::VacumCleaner("Дастпром", 5, 1000, 1500));
+		store.AddProduct(new store::VacumCleaner("Дастпром", 5, 1000, 1500, 500));
 	}
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::VacumCleaner("Умница", 5, 1000, 1500));
+		store.AddProduct(new store::VacumCleaner("Умница", 5, 1000, 1500, 500));
 	}
 
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::WashingMachine("Атлант", 5, 1000, 1500));
+		store.AddProduct(new store::WashingMachine("Атлант", 5, 1000, 1500, 500));
 	}
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::WashingMachine("Вятка", 5, 1000, 1500));
+		store.AddProduct(new store::WashingMachine("Вятка", 5, 1000, 1500, 500));
 	}
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::Drone("MJX", 1500, 1, 1500));
+		store.AddProduct(new store::Drone("MJX", 1500, 1, 1500, 500));
 	}
 
 	for (size_t i = 0; i < 5; ++i) {
-		store.AddProduct(new store::Drone("R16", 1500, 1, 1500));
+		store.AddProduct(new store::Drone("R16", 1500, 1, 1500, 500));
 	}
 
 
 	store.ShowProducts();
+
+	std::srand(time(NULL));
+	std::cout << "Item specifications" << std::endl;
+	const product::IElectronics* item = store.getItem(std::rand() % store.nproducts());
+	item->ShowSpec();
 	
-	store.cleanProducts();
 	
 }

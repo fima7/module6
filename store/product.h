@@ -2,17 +2,24 @@
 
 #include <iostream>
 
+//
+// Описание продукта
+//
+
 namespace product 
 {
 	class IElectronics
 	{
 	public:
+		/*
 		IElectronics() {
 			std::cout << "IElectronics()" << std::endl;
 		}
 		virtual ~IElectronics() {
 			std::cout << "~IElectronics()" << std::endl;
 		}
+		*/
+		virtual ~IElectronics() = default;
 	public:
 		virtual void ShowSpec() const = 0;
 	};
@@ -51,18 +58,6 @@ namespace product
 		size_t weight_;
 	};
 	Appliences::~Appliences() = default;
-
-	class Accessories : virtual public IElectronics
-	{
-	public:
-		Accessories(IElectronics& compatible)
-			: compatible_(compatible)
-		{}
-		virtual ~Accessories() = 0;
-	private:
-		const IElectronics& compatible_;
-	};
-	Accessories::~Accessories() = default;
 
 	class Player : public Device
 	{
@@ -116,9 +111,8 @@ namespace product
 		virtual void ShowSpec() const override
 		{
 			Appliences::ShowSpec();
-			std::cout << "Volume: " << sakeVolume_ 
-				<< "Power: " << maxPower_
-				<< std::endl;
+			std::cout << "Volume: " << sakeVolume_  << std::endl
+				<< "Power: " << maxPower_ << std::endl;
 		}
 	private:
 		size_t sakeVolume_;
@@ -139,9 +133,8 @@ namespace product
 		virtual void ShowSpec() const override
 		{
 			Appliences::ShowSpec();
-			std::cout << "Volume: " << volume_ 
-				<< "Speed: " << maxSpeed_ 
-				<< std::endl;
+			std::cout << "Volume: " << volume_ << std::endl
+				<< "Speed: " << maxSpeed_  << std::endl;
 		}
 	private:
 		size_t volume_;

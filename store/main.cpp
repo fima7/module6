@@ -167,7 +167,6 @@ int main()
 		store.AddProduct(new store::VacuumCleaner("Умница", 5, 1000, 1500, 500));
 	}
 
-
 	for (size_t i = 0; i < 5; ++i) {
 		store.AddProduct(new store::WashingMachine("Атлант", 5, 1000, 1500, 500));
 	}

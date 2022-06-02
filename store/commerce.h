@@ -3,14 +3,17 @@
 #include <string>
 
 //
-// Коммерческое описание
+// Коммерческое описание продукта
 //
 
 namespace commerce {
+
+	using money_t = size_t;
+
 	class Label
 	{
 	public:
-		Label(const std::string& type, const std::string& name, size_t price)
+		Label(const std::string& type, const std::string& name, money_t price)
 			: type_(type)
 			, name_(name)
 			, price_(price)
@@ -32,19 +35,20 @@ namespace commerce {
 		{
 			type_ = type;
 		}
-		size_t getPrice() const
+		money_t getPrice() const
 		{
 			return price_;
 		}
-		void setPrice(size_t price)
+		void setPrice(money_t price)
 		{
 			price_ = price;
 		}
 	private:
-		std::string type_;
-		std::string name_;
-		size_t price_;
+		std::string type_;	// Смартфон, Проигрыватель, Пылесос и т.п.
+		std::string name_;	// Название модели
+		money_t price_;		// Цена		
 	};
+
 }
 
 

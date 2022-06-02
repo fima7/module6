@@ -3,27 +3,32 @@
 #include <iostream>
 
 //
-// Описание продукта
+// Техническое описание продукта
 //
+
+// IELectronics
+//	Device
+//		Player, Smartphone
+//	Appliences
+//		VacuumCleaner, Washing Machine
+//	Device, Appliences
+//		Drone
 
 namespace product 
 {
+	//
+	// Интерфейс продуктов
+	//
+
 	class IElectronics
 	{
 	public:
-		/*
-		IElectronics() {
-			std::cout << "IElectronics()" << std::endl;
-		}
-		virtual ~IElectronics() {
-			std::cout << "~IElectronics()" << std::endl;
-		}
-		*/
 		virtual ~IElectronics() = default;
 	public:
 		virtual void ShowSpec() const = 0;
 	};
 
+	// Потребительская электронника
 	class Device : virtual public IElectronics
 	{
 	public:
@@ -32,16 +37,12 @@ namespace product
 		{}
 		virtual ~Device() = 0;
 	public:
-		virtual void ShowSpec() const override
-		{
-			std::cout << "Battery Life: " << batteryLife_ << std::endl;
-		}
-
+		virtual void ShowSpec() const override;
 	private:
-		size_t batteryLife_;
+		size_t batteryLife_; // На сколько хватает аккумулятора в минутах
 	};
-	Device::~Device() = default;
 
+	// Домашняя электротехника
 	class Appliences : virtual public IElectronics
 	{
 	public:
@@ -50,14 +51,15 @@ namespace product
 		{}
 		virtual ~Appliences() = 0;
 	public:
-		virtual void ShowSpec() const override
-		{
-			std::cout << "Weight: " << weight_ << std::endl;
-		}
+		virtual void ShowSpec() const override;
 	private:
-		size_t weight_;
+		size_t weight_; // Вес в граммах
 	};
-	Appliences::~Appliences() = default;
+
+
+	//
+	// Продукты потребительской электронники и домашней электротехники
+	//
 
 	class Player : public Device
 	{
@@ -68,16 +70,10 @@ namespace product
 		{}
 		virtual ~Player() = 0;
 	public:
-		virtual void ShowSpec() const override
-		{
-			Device::ShowSpec();
-			std::cout << "Max tracks: " << maxTracks_ << std::endl;
-		}
+		virtual void ShowSpec() const override;
 	private:
-		size_t maxTracks_;
+		size_t maxTracks_; // Максимальное количество звукозаписей
 	};
-	Player::~Player() = default;
-
 
 	class Smartphone : public Device
 	{
@@ -88,37 +84,26 @@ namespace product
 		{}
 		virtual ~Smartphone() = 0;
 	public:
-		virtual void ShowSpec() const override
-		{
-			Device::ShowSpec();
-			std::cout << "OS: " << osName_ << std::endl;
-		}
+		virtual void ShowSpec() const override;
 	private:
-		std::string osName_;
+		std::string osName_; // название ОС
 	};
-	Smartphone::~Smartphone() = default;
 
-	class VacumCleaner : public Appliences
+	class VacuumCleaner : public Appliences
 	{
 	public:
-		VacumCleaner(size_t weight, size_t sakeVolume, size_t maxPower)
+		VacuumCleaner(size_t weight, size_t sakeVolume, size_t maxPower)
 			: Appliences(weight)
 			, sakeVolume_(sakeVolume)
 			, maxPower_(maxPower)
 		{}
-		virtual ~VacumCleaner() = 0;
+		virtual ~VacuumCleaner() = 0;
 	public:
-		virtual void ShowSpec() const override
-		{
-			Appliences::ShowSpec();
-			std::cout << "Volume: " << sakeVolume_  << std::endl
-				<< "Power: " << maxPower_ << std::endl;
-		}
+		virtual void ShowSpec() const override;
 	private:
-		size_t sakeVolume_;
-		size_t maxPower_;
+		size_t sakeVolume_; // объём мешка для пыли в кубических сантиметрах
+		size_t maxPower_;	// мощность
 	};
-	VacumCleaner::~VacumCleaner() = default;
 
 	class WashingMachine : public Appliences
 	{
@@ -130,17 +115,11 @@ namespace product
 		{}
 		virtual ~WashingMachine() = 0;
 	public:
-		virtual void ShowSpec() const override
-		{
-			Appliences::ShowSpec();
-			std::cout << "Volume: " << volume_ << std::endl
-				<< "Speed: " << maxSpeed_  << std::endl;
-		}
+		virtual void ShowSpec() const override;
 	private:
-		size_t volume_;
-		size_t maxSpeed_;
+		size_t volume_;		// объём бака
+		size_t maxSpeed_;	// скорость в оборотах в минуту
 	};
-	WashingMachine::~WashingMachine() = default;
 
 	class Drone : public Device, public Appliences
 	{
@@ -152,15 +131,10 @@ namespace product
 		{}
 		virtual ~Drone() = 0; 
 	public:
-		virtual void ShowSpec() const override
-		{
-			Device::ShowSpec();
-			Appliences::ShowSpec();
-			std::cout << "Distance: " << maxDistance_ << std::endl;
-		}
+		virtual void ShowSpec() const override;
 	private:
-		size_t maxDistance_;
+		size_t maxDistance_;	// максимальная дальность полёты в метрах
 	};
-	Drone::~Drone() = default;
+
 }
 
